@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TEST Navbar checks sample page elements 1`] = `
+<input
+  placeholder="input value..."
+  type="text"
+/>
+`;
+
+exports[`TEST Navbar renders links 1`] = `
+<input
+  placeholder="input value..."
+  type="text"
+/>
+`;
+
+exports[`TEST Navbar renders nav links 1`] = `
+<input
+  placeholder="input value..."
+  type="text"
+/>
+`;

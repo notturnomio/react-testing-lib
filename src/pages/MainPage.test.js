@@ -1,29 +1,37 @@
 /* eslint-disable testing-library/prefer-presence-queries */
 /* eslint-disable testing-library/no-debugging-utils */
-import { fireEvent, render, screen } from '@testing-library/react';
-import MainPage from './MainPage';
+import { fireEvent, screen } from '@testing-library/react';
+import { renderTestApp } from '../tests/helpers/renderTestApp';
 
 describe('TEST MainPage', () => {
   test('checks sample page elements', () => {
-    render(<MainPage url='/' />);
-    const helloWorldElement = screen.getByText(/hello world/i);
-    const btn = screen.getByRole('button');
+    renderTestApp(null, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
+    });
+
     const input = screen.getByPlaceholderText(/input value/i);
-    expect(helloWorldElement).toBeInTheDocument();
-    expect(btn).toBeInTheDocument();
     expect(input).toBeInTheDocument();
     expect(input).toMatchSnapshot();
     // screen.debug();
   });
 
   test('tests no element', () => {
-    render(<MainPage url='/' />);
+    renderTestApp(null, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
+    });
+
     const hello2 = screen.queryByText(/hello2/i);
     expect(hello2).toBeNull();
   });
 
   test('tests async element', async () => {
-    render(<MainPage url='/' />);
+    renderTestApp(null, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
+    });
+
     // act(() => {
     //   jest.advanceTimersByTime(1000);
     // });
@@ -33,7 +41,11 @@ describe('TEST MainPage', () => {
   });
 
   test('tests click', () => {
-    render(<MainPage url='/' />);
+    renderTestApp(null, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
+    });
+
     const toggleBtn = screen.getByTestId('toggle-btn');
     expect(screen.queryByTestId('toggle-elm')).not.toBeInTheDocument();
     fireEvent.click(toggleBtn);
@@ -43,7 +55,11 @@ describe('TEST MainPage', () => {
   });
 
   test('tests input', () => {
-    render(<MainPage url='/' />);
+    renderTestApp(null, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
+    });
+
     const input = screen.getByPlaceholderText(/input value/i);
     expect(screen.queryByTestId('value-elm')).toContainHTML('');
     fireEvent.input(input, {

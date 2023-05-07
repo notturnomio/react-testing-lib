@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Counter from '../components/Counter/Counter';
 // import '../App.css';
 
 function MainPage() {
@@ -22,7 +23,6 @@ function MainPage() {
           My async text line
         </div>
       )}
-      <h1 className='App-header'>Hello World!</h1>
       <h1 className='App-header' data-testid='value-elm'>
         {inputValue}
       </h1>
@@ -33,9 +33,9 @@ function MainPage() {
           onChange={(e) => setInputValue(e.target.value)}
         />
       </div>
-      <div>
+      <div style={{ padding: '20px 0' }}>
         <button data-testid='toggle-btn' onClick={onClick}>
-          Click me
+          Toggle hidden text
         </button>
       </div>
       {toggle === true && (
@@ -43,6 +43,7 @@ function MainPage() {
           Toggle
         </div>
       )}
+      <Counter />
     </div>
   );
 }

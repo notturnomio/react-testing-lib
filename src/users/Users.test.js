@@ -2,10 +2,9 @@
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable testing-library/no-debugging-utils */
 import { screen } from '@testing-library/react';
-import Users from './Users';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import { renderWithRouter } from '../tests/helpers/renderWithRouter';
+import { renderTestApp } from '../tests/helpers/renderTestApp';
 
 describe('Users component', () => {
   beforeEach(() => {
@@ -42,9 +41,10 @@ describe('Users component', () => {
   });
 
   test('renders a list of users', async () => {
-    await act(async () => {
-      renderWithRouter(<Users />);
+    renderTestApp(null, {
+      route: '/users',
     });
+
     const users = await screen.findAllByTestId('user-item');
     expect(users).toHaveLength(4);
     expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -52,16 +52,18 @@ describe('Users component', () => {
 
   test('handles network errors', async () => {
     global.fetch.mockRejectedValueOnce(new Error('Network error'));
-    await act(async () => {
-      renderWithRouter(<Users />);
+    renderTestApp(null, {
+      route: '/users',
     });
+
     await expect(screen.findByText(/Error/i)).rejects.toThrow(Error);
   });
 
   test('redirect to user details page', async () => {
-    await act(async () => {
-      renderWithRouter(<Users />);
+    renderTestApp(null, {
+      route: '/users',
     });
+
     const users = await screen.findAllByTestId('user-item');
     expect(users).toHaveLength(4);
     await act(async () => {

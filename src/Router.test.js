@@ -1,18 +1,15 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
+import { renderTestApp } from './tests/helpers/renderTestApp';
+import Navbar from './components/Navbar/Navbar';
 
 describe('TEST Routers', () => {
   test('checks routers', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      );
+    renderTestApp(<Navbar />, {
+      route: '/',
+      initialState: { counter: { value: 0 } },
     });
     const mainLink = screen.getByTestId('main-link');
     const aboutLink = screen.getByTestId('about-link');
@@ -27,12 +24,9 @@ describe('TEST Routers', () => {
   });
 
   test('checks wrong routers', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/broken-path']}>
-          <App />
-        </MemoryRouter>
-      );
+    renderTestApp(null, {
+      route: '/broken-path',
+      initialState: { counter: { value: 0 } },
     });
 
     expect(await screen.findByTestId('error-page')).toBeInTheDocument();

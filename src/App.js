@@ -3,7 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <div data-testid='app'>
+    <div data-testid='app' style={{ padding: '40px' }}>
       <Navbar />
       <AppRouter />
     </div>

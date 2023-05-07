@@ -1,17 +1,10 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import App from './App';
-import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
+import { renderTestApp } from './tests/helpers/renderTestApp';
 
 test('render App page', async () => {
-  await act(async () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
-  });
+  renderTestApp(<App />, { route: '/' });
   const app = screen.getByTestId('app');
   expect(app).toBeInTheDocument();
 });

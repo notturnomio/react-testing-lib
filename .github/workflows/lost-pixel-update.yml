@@ -14,15 +14,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build ladle
-        run: npm run build
+      - name: Build Storybook components
+        run: npm run build-storybook
 
-      - name: Serve ladle
-        run: npm run serve &
-
-      - name: Lost Pixel
+      - name: Run Lost Pixel container
         id: lp
         uses: lost-pixel/lost-pixel@v3.4.0
         env:
